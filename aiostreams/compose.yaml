@@ -1,0 +1,17 @@
+services:
+  aiostreams:
+    image: ghcr.io/viren070/aiostreams:latest@sha256:1b90bc2fda70f365dff2ce98fc311a24708cca9841efe09aefe309cd4da1fb2c
+    ports:
+      - "3000:3000"
+    environment:
+      BASE_URL: https://aio.dardery.work
+      DATABASE_URI: sqlite://./data/db.sqlite
+    volumes:
+      - data:/app/data
+
+  cloudflared:
+    image: docker.io/cloudflare/cloudflared:latest@sha256:e613aadbc2d9511785d2e67a86b0c8ac18dd63a3f9af0d06faf04cbfdcb35f2d
+    command: ["tunnel", "--no-autoupdate", "run"]
+
+volumes:
+  data: {}
